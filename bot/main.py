@@ -123,7 +123,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     embed.add_field(name="Victim", value="{}".format(victim), inline=True)
     embed.add_field(name="Map", value="{}".format(mapp))
     embed.add_field(name="Weapon", value="{}".format(weapon), inline=True)
-    embed.add_field(name="Distance", value="{}".format(distance), inline=True)
+    embed.add_field(name="Distance", value="{}".format(distance + ' meters'), inline=True)
 
     # Add this video to the database
     # This will prevent the bot from posting this video again 
@@ -173,9 +173,7 @@ class Pubgbot(discord.Client):
                 api = Api()
                 report_id = api.getId(msg[1])
                 api.event(report_id, message.author)
-            if msg[0] == '!say':
-                say(text='Testing yes, please')
-                return
+
 
             ## REPORT
             if msg[0] == '!reportid':
