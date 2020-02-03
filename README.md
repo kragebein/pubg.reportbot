@@ -1,7 +1,7 @@
 
 # pubg.report discord bot
 
-A bot that will announce your kill/you being killed in pubg to your discord channel, with video. 
+A bot that will announce your kill/you being killed in pubg to your discord channel with video from your enemies point of view via their Twitchstream. 
 
 Setup:
 > pip3 install -r requirements.txt
@@ -21,7 +21,7 @@ https://discordapp.com/developers/applications/
 And a webhook, this you can find under channel settings. 
 Edit the pubgbot.py file with the webhook and the bot token. 
 
-Bot is still under development, further debugging and testing is required. 
+Bot is still under development, further debugging and testing is neccecary. 
 
 *Also, after the first time you register, the bot will announce -all- clips up to this date, after the first loop, it will only announce the latest clip. Can be expedited by using :*
 >!test playername 
