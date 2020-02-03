@@ -8,6 +8,7 @@ Setup:
 
 usage:
 > !register playername
+
 > !unregister playername
 
 Once registered with the bot, the bot will loop through the list of players in the database and look for kills through pubg.report and announce that event in your preferred discord channel. 
