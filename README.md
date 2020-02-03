@@ -1,34 +1,48 @@
-
 # pubg.report discord bot
 
-A bot that will announce your kill/you being killed in pubg to your discord channel with video from your enemies point of view via their Twitchstream. 
+  
+
+A bot that will announce your kill/you being killed in pubg to your discord channel with video from your enemies point of view via their Twitchstream.
+
+How to download:
+
+> git clone https://github.com/kragebein/pubg.reportbot.git
+
+or
+
+> click here: https://github.com/kragebein/pubg.reportbot/archive/master.zip
+
 
 Setup:
-> pip3 install -r requirements.txt
 
-usage:
-> !register playername
+> pip3 install -f requirements.txt
 
-> !unregister playername
+To run the bot you need the following:
 
-Once registered with the bot, the bot will loop through the list of players in the database and look for kills through pubg.report and announce that event in your preferred discord channel. 
-![Example](https://i.imgur.com/LNEESew.png)
-
-To set up the bot you will need two things:
-A discord API key, you can get that here: 
+* A discord API key, you can get that here:
 https://discordapp.com/developers/applications/
+* A webhook. This you can get in the settings of a text channel. 
+	
+In the file pubgreport.py you will find these settings: 
+>  bot_token =  ''  # Api key 
+>  webhook_uri =  ''  #Webhook URL 
+>  check_time = 5 # 
 
-And a webhook, this you can find under channel settings. 
-Edit the pubgbot.py file with the webhook and the bot token. 
+Please mind the check time, it cannot be below 5 or you will be banned from pubg.report
 
-Bot is still under development, further debugging and testing is neccecary. 
+Please update them accordingly.
+
+To actually start the bot, just run
+> python3.6 pubgreport.py
+
+
+Bot is still under development, further debugging and testing is neccecary.
 
 *Also, after the first time you register, the bot will announce -all- clips up to this date, after the first loop, it will only announce the latest clip. Can be expedited by using :*
->!test playername 
 
+>!test playername
 
-
-
-
-
+![Example](https://i.imgur.com/LNEESew.png)
   
+
+Just note: The match must be ended before the clips will show up. Even if you are the first to die, the clips will not be available until the game has had its Chicken Dinner. 
