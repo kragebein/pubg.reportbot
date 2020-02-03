@@ -1,6 +1,5 @@
 #!/usr/bin/python3.6
-import json, re, requests, asyncio, sqlite3, discord, time
-#from discord import Webhook, RequestsWebhookAdapter
+import json, re, requests, sqlite3, discord, time
 class Api():
     from bot.main import build_embed
     def getId(self, i):
@@ -78,4 +77,4 @@ class Api():
             return True
         c.close()
         return False
-#event('j0h4ns1')
+
