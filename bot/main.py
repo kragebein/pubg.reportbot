@@ -16,7 +16,7 @@ a = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dicti
 weapons_list.update(json.loads(a.text))
 c = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/mapName.json')
 map_list.update(json.loads(c.text))
-  
+
 
 def getUser(i):
     '''Find the discord username of whoever owns this id'''
@@ -102,8 +102,8 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
 
     embed = discord.Embed(title='{} just {} {}!'.format(killer, event, victim),url="https://www.twitch.tv/videos/{}?t={}".format(videoID,timecode), timestamp=datetime.datetime.utcfromtimestamp(timestamp))
     embed.set_thumbnail(url=imagetype[event])
-    embed.set_author(name=discorduser, url="https://www.pubg.report", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-    embed.set_footer(text="pubg.report", icon_url="https://svgshare.com/i/Hdn.svg")
+    embed.set_author(name=discorduser, url="https://github.com/kragebein/pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
+    embed.set_footer(text="pubg.reportbot)
     embed.set_image(url=maptype[mapp])
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Victim", value="{}".format(victim), inline=True)
