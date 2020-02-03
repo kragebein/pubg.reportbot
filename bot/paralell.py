@@ -60,7 +60,13 @@ def main():
                 pubgname = i
                 discord = getUser(pubgname)
                 #print('Parsing: {}: {}'.format(discord, pubgname))
-                api.event(pubgname, discord) # Run the results through pubg.report api
+                try:
+                    api.event(pubgname, discord) # Run the results through pubg.report api
+                except Exception as r:
+                    logging.info('Something went wrong while checking pubg.report. See debug.')
+                    logging.debug('Error, unable to connect to api.pubg.report, debug:')
+                    logging.debug(r)
+                    break
             run += timer
             
         
