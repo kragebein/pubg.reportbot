@@ -4,7 +4,7 @@
 A bot that will announce your kill/you being killed in pubg to your discord channel, with video. 
 
 Setup:
-> pip install discord sqlite3 requests json
+> pip3 install -r requirements.txt
 
 usage:
 > !register playername
