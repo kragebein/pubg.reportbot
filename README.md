@@ -4,7 +4,7 @@
 
 A bot that will announce your kill/you being killed in pubg to your discord channel with video from your enemies point of view via their Twitchstream.
 
-How to download:
+**How to download:**
 
 > git clone https://github.com/kragebein/pubg.reportbot.git
 
@@ -13,7 +13,7 @@ or
 > click here: https://github.com/kragebein/pubg.reportbot/archive/master.zip
 
 
-Setup:
+**Setup:**
 
 > pip3 install -f requirements.txt
 
@@ -30,11 +30,11 @@ In the file pubgbot.py you will find these settings:
 
 >  check_time = 5 # 
 
-Please mind the check time, it cannot be below 5 or you will be banned from pubg.report
-
 Please update them accordingly.
 
-To actually start the bot, just run
+Please mind the check time, it cannot be below 5 or you will be banned from pubg.report
+
+**To start the bot:**
 > python3.6 pubgbot.py
 
 
