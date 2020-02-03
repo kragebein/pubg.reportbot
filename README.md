@@ -32,7 +32,7 @@ In the file pubgbot.py you will find these settings:
 
 Please update them accordingly.
 
-Please mind the check time, it cannot be below 5 or you will be banned from pubg.report
+*Please make sure to have check_time above 5. Anything below and you will be banned from pubg.report.*
 
 **To start the bot:**
 > python3.6 pubgbot.py
