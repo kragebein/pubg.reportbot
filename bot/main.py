@@ -138,8 +138,9 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     say(embed=embed)
 
 def say(text=None, embed=None):
-    from pubgbot import webhook_token, webhook as webhook_int
-    webhook = Webhook.partial(webhook_int, webhook_token, adapter=RequestsWebhookAdapter())
+    from pubgbot import webhook_uri
+    uri = webhook_uri.split('/')
+    webhook = Webhook.partial(uri[5], uri[6], adapter=RequestsWebhookAdapter())
     if text is None:
         text = ''
     webhook.send(text, embed=embed, username=bot_username)
@@ -172,6 +173,9 @@ class Pubgbot(discord.Client):
                 api = Api()
                 report_id = api.getId(msg[1])
                 api.event(report_id, message.author)
+            if msg[0] == '!say':
+                say(text='Testing yes, please')
+                return
 
             ## REPORT
             if msg[0] == '!reportid':
