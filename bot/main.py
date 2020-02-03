@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
 # -*- coding: UTF-8 -*-
-import discord, logging, json, requests, datetime, sqlite3, time, asyncio
+import discord, logging, json, requests, datetime, sqlite3, time, asyncio, os
 from discord import Webhook, RequestsWebhookAdapter
 from calendar import timegm
 bot_username = ''
@@ -9,6 +9,20 @@ weapons_list = {}
 map_list = {}
 damage_list = {}
 logging.basicConfig(level=logging.INFO)
+
+if os.path.exists('database.db') is False:
+    print('Setting up db..', end='')
+    x = sqlite3.connect('database.db')
+    c = x.cursor()
+    queries = [
+    'CREATE TABLE players (discordname TEXT, pubgname TEXT);',
+    'CREATE TABLE matches (eventid TEXT);'
+    ]
+    for i in queries:
+        c.execute(i)
+    x.commit()
+    x.close()
+    print('Done')
 
 #Load the neccecary assets before we do anything else.
 print('Loading external assets..') 
@@ -103,7 +117,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     embed = discord.Embed(title='{} just {} {}!'.format(killer, event, victim),url="https://www.twitch.tv/videos/{}?t={}".format(videoID,timecode), timestamp=datetime.datetime.utcfromtimestamp(timestamp))
     embed.set_thumbnail(url=imagetype[event])
     embed.set_author(name=discorduser, url="https://github.com/kragebein/pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
-    embed.set_footer(text="pubg.reportbot)
+    embed.set_footer(text="pubg.reportbot")
     embed.set_image(url=maptype[mapp])
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Victim", value="{}".format(victim), inline=True)
@@ -121,12 +135,13 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     x.close()
 
     # Send the data through to the webhook.
-    text = ''
     say(embed=embed)
 
-def say(text=None, embed=None:
+def say(text=None, embed=None):
     from pubgbot import webhook_token, webhook as webhook_int
     webhook = Webhook.partial(webhook_int, webhook_token, adapter=RequestsWebhookAdapter())
+    if text is None:
+        text = ''
     webhook.send(text, embed=embed, username=bot_username)
 
 
