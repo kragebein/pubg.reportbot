@@ -3,6 +3,7 @@
 import discord, logging, json, requests, datetime, sqlite3, time, asyncio, os
 from discord import Webhook, RequestsWebhookAdapter
 from calendar import timegm
+name = 'pubg.report bot'
 bot_username = ''
 init = 'no'
 weapons_list = {}
@@ -31,7 +32,6 @@ weapons_list.update(json.loads(a.text))
 c = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/mapName.json')
 map_list.update(json.loads(c.text))
 
-
 def getUser(i):
     '''Find the discord username of whoever owns this id'''
     conn = sqlite3.connect('database.db')
@@ -43,6 +43,29 @@ def getUser(i):
     if len(result) > 0:
         return result[0]
     return False
+
+def checkforupdate():
+    with open('version.txt', 'r') as versions:
+        version = json.loads(versions.read())
+    version = version['version']
+    versions.close()
+    def update(update):
+        newversion = update['version']
+        if float(newversion) > float(version):
+            print('\n\n\n{} v{}\nNew version available: v{}\nGet it here: https://github.com/kragebein/pubg.reportbot\n\n\n\n\n'.format(name, version, newversion))
+        else:
+            print(name + ' v' + version)
+    try:
+        f = requests.get('https://raw.githubusercontent.com/kragebein/pubg.reportbot/master/version.txt')
+        upt = f.json()
+    except:
+        pass
+    try:
+        update(upt)
+    except:
+        print(name + ' v' + version)
+
+checkforupdate()
 
 def getEvent(i):
     '''Check if this is already processed.'''
@@ -145,8 +168,6 @@ def say(text=None, embed=None):
         text = ''
     webhook.send(text, embed=embed, username=bot_username)
 
-
-    
 class Pubgbot(discord.Client):
     async def on_ready(self):
         ''' initialize bot and report plugin'''
@@ -156,7 +177,6 @@ class Pubgbot(discord.Client):
         from bot.paralell import main as runloop
         await loop.run_in_executor(None, runloop)
         
-
     async def on_message(self, message):
         from bot.pubg import Api
         api = Api()
@@ -173,7 +193,6 @@ class Pubgbot(discord.Client):
                 api = Api()
                 report_id = api.getId(msg[1])
                 api.event(report_id, message.author)
-
 
             ## REPORT
             if msg[0] == '!reportid':
@@ -223,8 +242,6 @@ class Pubgbot(discord.Client):
                 elif unregister is False:
                     await message.channel.send('Couldnt remove {} from tracking, are you sure the user exists?'.format(msg[1]))
                     return
-
-
 client = Pubgbot()
 
 
