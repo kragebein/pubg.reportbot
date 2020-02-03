@@ -28,7 +28,7 @@ In the file pubgbot.py you will find these settings:
 
 >  webhook_uri =  ''  #Webhook URL 
 
->  check_time = 10 # How often the bot will check for updates, in minutes (no less than five minutes or you'll be banned from pubg.report)
+>  check_time = 10 # How often the bot will check for updates, in minutes (no less than ten minutes or you'll be banned from pubg.report)
 
 Please update them accordingly.
 
@@ -36,7 +36,6 @@ Please update them accordingly.
 
 **To start the bot:**
 > python3.6 pubgbot.py
-
 
 Bot is still under development, further debugging and testing is neccecary.
 
