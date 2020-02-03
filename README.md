@@ -23,7 +23,7 @@ To run the bot you need the following:
 https://discordapp.com/developers/applications/
 * A webhook. This you can get in the settings of a text channel. 
 	
-In the file pubgreport.py you will find these settings: 
+In the file pubgbot.py you will find these settings: 
 >  bot_token =  ''  # Api key 
 >  webhook_uri =  ''  #Webhook URL 
 >  check_time = 5 # 
@@ -33,7 +33,7 @@ Please mind the check time, it cannot be below 5 or you will be banned from pubg
 Please update them accordingly.
 
 To actually start the bot, just run
-> python3.6 pubgreport.py
+> python3.6 pubgbot.py
 
 
 Bot is still under development, further debugging and testing is neccecary.
