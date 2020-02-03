@@ -25,7 +25,9 @@ https://discordapp.com/developers/applications/
 	
 In the file pubgbot.py you will find these settings: 
 >  bot_token =  ''  # Api key 
+
 >  webhook_uri =  ''  #Webhook URL 
+
 >  check_time = 5 # 
 
 Please mind the check time, it cannot be below 5 or you will be banned from pubg.report
