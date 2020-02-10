@@ -3,6 +3,7 @@ import json, re, requests, sqlite3, discord, time
 class Api():
     from bot.main import build_embed
     def getId(self, i):
+        '''Get the Get the playername Counterpart'''
         url  = "https://api.pubg.report/search/" + i
         x = requests.get(url)
         z = x.text
@@ -13,6 +14,7 @@ class Api():
         return None
                 
     def getStream(self, i):
+        ''' Get the json data we need from pubg.report '''
         if i.split('.')[0] != 'account':
             id = self.getId(i)
         id = i
@@ -23,6 +25,7 @@ class Api():
             return z
 
     def event(self, i, discorduser):
+        '''Processes the data we got from pubg.report '''
         k = self.getStream(i)
         if k != None:     
             k = json.loads(k)
