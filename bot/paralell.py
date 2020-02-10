@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
 ''' Module that checks pubg.report for updates '''
-import sqlite3, time, logging
+import sqlite3, time, logging, traceback
 from bot.pubg import Api
 from pubgbot import check_rate
 
@@ -13,7 +13,6 @@ def getUser(i):
         conn.close()
         return data
 
-   
 '''Initialize what we need for the loop'''
 timer = check_rate * 60
 accountlist = [] #TODO: make some statistics.
@@ -35,7 +34,6 @@ def calculate_checkrate(data):
     estimate = length / 5
     cal = estimate * length
     if cal > check_rate:
-        # Calculated estimate exeeds check rate, aborting.
         return False
     return True
 
@@ -64,8 +62,9 @@ def main():
                     api.event(pubgname, discord) # Run the results through pubg.report api
                 except Exception as r:
                     logging.info('Something went wrong while checking pubg.report. See debug.')
-                    logging.debug('Error, unable to connect to api.pubg.report, debug:')
-                    logging.debug(r)
+                    logging.info('Error, unable to connect to api.pubg.report, debug:')
+                    logging.info(str(r))
+                    traceback.print_exc()
                     break
             run += timer
             
