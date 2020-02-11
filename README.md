@@ -37,7 +37,7 @@ Please update them accordingly.
 **To start the bot:**
 > python3.6 pubgbot.py
 
-Bot is still under development, further debugging and testing is neccecary.
+Bot is still under development, further debugging and testing is necessary.
 
 *Also, after the first time you register, the bot will announce -all- clips up to this date, after the first loop, it will only announce the latest clip. Can be expedited by using :*
 
