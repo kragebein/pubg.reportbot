@@ -141,7 +141,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     embed.set_thumbnail(url=imagetype[event])
     embed.set_author(name=discorduser, url="https://github.com/kragebein/pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
     embed.set_footer(text="pubg.reportbot")
-    embed.set_image(url=maptype[mapp])
+    #embed.set_image(url=maptype[mapp])
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Victim", value="{}".format(victim), inline=True)
     embed.add_field(name="Map", value="{}".format(mapp))
