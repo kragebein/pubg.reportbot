@@ -141,12 +141,19 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     embed.set_thumbnail(url=imagetype[event])
     embed.set_author(name=discorduser, url="https://github.com/kragebein/pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
     embed.set_footer(text="pubg.reportbot")
-    #embed.set_image(url=maptype[mapp])
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Victim", value="{}".format(victim), inline=True)
     embed.add_field(name="Map", value="{}".format(mapp))
     embed.add_field(name="Weapon", value="{}".format(weapon), inline=True)
     embed.add_field(name="Distance", value="{}".format(str(distance) + ' meters'), inline=True)
+    # if someone was killed, pull up some stats about them instead.
+    if event == 'killed' or event == 'killed teammate' or event == 'killed by teammate':
+        from bot.api import compute
+        about = compute(victim=victim, matchid=matchID)
+        if about is not False:
+            embed.add_field(name='About {}'.format(victim), value=about, inline=False)
+    else:
+        embed.set_image(url=maptype[mapp])
 
     # Add this video to the database
     # This will prevent the bot from posting this video again 
