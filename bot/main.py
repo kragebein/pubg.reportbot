@@ -9,7 +9,7 @@ init = 'no'
 weapons_list = {}
 map_list = {}
 damage_list = {}
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 if os.path.exists('database.db') is False:
     print('Setting up db..', end='')
@@ -25,12 +25,13 @@ if os.path.exists('database.db') is False:
     x.close()
     print('Done')
 
-#Load the neccecary assets before we do anything else.
-print('Loading external assets..') 
-a = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/damageCauserName.json')
-weapons_list.update(json.loads(a.text))
-c = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/mapName.json')
-map_list.update(json.loads(c.text))
+def extload():
+    #Load the neccecary assets before we do anything else.
+    print('Loading external assets..') 
+    a = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/damageCauserName.json')
+    weapons_list.update(json.loads(a.text))
+    c = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/mapName.json')
+    map_list.update(json.loads(c.text))
 
 def getUser(i):
     '''Find the discord username of whoever owns this id'''
@@ -139,14 +140,14 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
 
     embed = discord.Embed(title='{} just {} {}!'.format(killer, event, victim),url="https://www.twitch.tv/videos/{}?t={}".format(videoID,timecode), timestamp=datetime.datetime.utcfromtimestamp(timestamp))
     embed.set_thumbnail(url=imagetype[event])
-    embed.set_author(name=discorduser, url="https://github.com/kragebein/pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
-    embed.set_footer(text="pubg.reportbot")
+    embed.set_author(name=discorduser)
+    embed.set_footer(text="pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
-    embed.add_field(name="Victim", value="{}".format(victim), inline=True)
-    embed.add_field(name="Map", value="{}".format(mapp))
     embed.add_field(name="Weapon", value="{}".format(weapon), inline=True)
+    embed.add_field(name="Victim", value="{}".format(victim), inline=True)
+    embed.add_field(name="Map", value="{}".format(mapp), inline=True)
     embed.add_field(name="Distance", value="{}".format(str(distance) + ' meters'), inline=True)
-    # if someone was killed, pull up some stats about them instead.
+    # if someone was killed, pull up some stats about them, if not, show the image.
     if event == 'killed' or event == 'killed teammate' or event == 'killed by teammate':
         from bot.api import compute
         about = compute(victim=victim, matchid=matchID)
@@ -155,8 +156,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     else:
         embed.set_image(url=maptype[mapp])
 
-    # Add this video to the database
-    # This will prevent the bot from posting this video again 
+    # Add this id to the db.
     x = sqlite3.connect('database.db')
     conn = x.cursor()
     query = 'INSERT INTO matches VALUES("{}")'.format(eventID)
@@ -164,7 +164,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
     x.commit()
     x.close()
 
-    # Send the data through to the webhook.
+    # say it
     say(embed=embed)
 
 def say(text=None, embed=None):
@@ -179,6 +179,7 @@ class Pubgbot(discord.Client):
     async def on_ready(self):
         ''' initialize bot and report plugin'''
         logging.info('Logged in as {}'.format(self.user))
+        extload() # we'll load the external assets /before/ we start the new loop.
         bot_username = '{}'.format(self.user) #Make username Global. 
         loop = client.loop
         from bot.paralell import main as runloop
