@@ -44,7 +44,8 @@ Bot is still under development, further debugging and testing is necessary.
 >!test playername
 
 
-# Updated v1.1 now includes some statistics about whoever was killed in the feed. 
+# Updated! 
+> 1.1 now includes some statistics collected from pubg's api about whoever was killed.
 
 ![Example](https://i.imgur.com/C9l668Y.png)
 ![Example](https://i.imgur.com/LNEESew.png)
