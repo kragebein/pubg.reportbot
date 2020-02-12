@@ -22,8 +22,6 @@ class GetData(Api):
         return data
 
 def compute(victim=None, matchid=None):
-    print(matchid)
-    print(victim)
     ''' Chaos incarnate'''
     from bot.pubg import Api as dApi
     x = GetData() # Init pubg api
@@ -43,6 +41,6 @@ def compute(victim=None, matchid=None):
                 return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocked, round(time,1), place))
         except:
             pass
-    return 'lol'
+    return False
 
 #print(compute('Elite2802', 'acaaaa94-b8b7-4f2f-b037-40241afc42e3'))
