@@ -1,6 +1,7 @@
 #!/usr/bin/python3.6
 import json, re, requests, sqlite3, discord, time
 class Api():
+    ''' Do the work against pubg.report api '''
     from bot.main import build_embed
     def getId(self, i):
         '''Get the Get the playername Counterpart'''
