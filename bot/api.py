@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 
 class Api(ABC):
     ''' Trying to learn abc..'''
+    # lol failed.
     def __init__(self):
         self.url = 'https://api.pubg.com/shards/steam'
 
@@ -14,11 +15,13 @@ class GetData(Api):
     def MatchInfo(self, matchid=None):
         ''' Returns data and statistics for this match '''
         if matchid is None:
-            return None
+            return False
         headers = {'Accept': 'application/vnd.api+json'}
         self.append = '/matches/{}'.format(matchid)
         get = requests.get(self.url + self.append, headers=headers)
         data = json.loads(get.text)
+        if data is None:
+            return False
         return data
 
 def compute(victim=None, matchid=None):
@@ -43,4 +46,3 @@ def compute(victim=None, matchid=None):
             pass
     return False
 
-#print(compute('Elite2802', 'acaaaa94-b8b7-4f2f-b037-40241afc42e3'))
