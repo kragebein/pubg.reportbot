@@ -27,11 +27,12 @@ if os.path.exists('database.db') is False:
 
 def extload():
     #Load the neccecary assets before we do anything else.
-    print('Loading external assets..') 
+    print('Loading external assets..', end='') 
     a = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/damageCauserName.json')
     weapons_list.update(json.loads(a.text))
     c = requests.get('https://raw.githubusercontent.com/pubg/api-assets/master/dictionaries/telemetry/mapName.json')
     map_list.update(json.loads(c.text))
+    print('Loaded')
 
 def getUser(i):
     '''Find the discord username of whoever owns this id'''
@@ -153,6 +154,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
         about = compute(victim=victim, matchid=matchID)
         if about is not False:
             embed.add_field(name='About {}'.format(victim), value=about, inline=False)
+            
     else:
         embed.set_image(url=maptype[mapp])
 
@@ -166,6 +168,8 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
 
     # say it
     say(embed=embed)
+    # Bots arent allowed to embed videos (yet)
+    #say(text="https://player.twitch.tv/?video={}&autoplay=false&time={}&width=800&height=600".format(videoID, timecode)) 
 
 def say(text=None, embed=None):
     from pubgbot import webhook_uri
@@ -189,7 +193,12 @@ class Pubgbot(discord.Client):
         from bot.pubg import Api
         api = Api()
         text = message.content
-        print('< {}> {}'.format(message.author, text))
+        try:
+            print('< {}> {}'.format(message.author, text))
+        except UnicodeEncodeError:
+            print('< {}> {}'.format(message.author, text.encode('utf-8')))
+        except:
+            print('< {}> {}'.format(message.author, '*unable to decode textdata*'))
         if message.author != self.user:
             msg = message.content.split(' ')
             if msg[0] == '!test':
