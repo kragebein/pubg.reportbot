@@ -41,15 +41,21 @@ def main():
     ''' actual loop'''
     now = int(time.time())
     api = Api()
-    run = now
+    run = now - 10
+    print('Bot is now running.')
+    print('')
+    print('# Clients have to use !register command to register themselves.')
+    print('# !unregister to unregister')
+    print('# The command !test <pugbname> is also available to see if\n  the bot has successfully located them on pubg.report')
+    print('\n')
     while True:
         now = int(time.time())
-        if run < now:
+        if run <= now:
+            print('Checking pubg.report now!')
             data = sql()
-            if calculate_checkrate(data) is False:
+            if not calculate_checkrate(data):
                 logging.info('check_rate in pubgbot.py is too low based on the amount of active users. Either remove users, on increase the rate.')
                 break
-            logging.info('Checking pubg.report for updates..')
             if len(data) == 0:
                 break   #Dont run any further without any data
             for i in range(0, len(data)):
@@ -66,6 +72,7 @@ def main():
                     logging.info(str(r))
                     traceback.print_exc()
                     break
+            
             run += timer
             
         
