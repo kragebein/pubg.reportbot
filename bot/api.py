@@ -7,7 +7,6 @@ from abc import ABC, abstractmethod
 
 class Api(ABC):
     ''' Trying to learn abc..'''
-    # lol failed.
     def __init__(self):
         self.url = 'https://api.pubg.com/shards/steam'
 
