@@ -50,6 +50,7 @@ class Api():
                     time.sleep(1)
                     self.build_embed(discorduser=discorduser, killer=killer, victim=victim, distance=distance, mmap=mmap, mode=mode, weapon=weapon, event=event, twitchID=twitchID, videoID=videoID, matchID=matchID, eventID=eventID, when=when, diff=diff)
         else:
+            
             return None
 
     def report_register(self, author, name):
