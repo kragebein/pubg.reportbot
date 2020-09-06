@@ -21,6 +21,7 @@ class GetData(Api):
         data = json.loads(get.text)
         if data is None:
             return False
+        print(data)
         return data
 
 def compute(victim=None, matchid=None):
@@ -32,8 +33,8 @@ def compute(victim=None, matchid=None):
     proc = x.MatchInfo(matchid=matchid)
     if victimid == None:
         return False
-    for i in proc['included']:
-        try:
+    try:
+        for i in proc['included']:
             if i['attributes']['stats']['playerId'] == victimid: # AccountID
                 diter = i['attributes']['stats']
                 place = diter['winPlace']
@@ -41,7 +42,9 @@ def compute(victim=None, matchid=None):
                 time = diter['timeSurvived'] / 60
                 knocked = diter['DBNOs']
                 return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocked, round(time,1), place))
-        except:
-            pass
+    except:
+        #DEBUG
+        traceback.print_exc()
+        pass
     return False
 
