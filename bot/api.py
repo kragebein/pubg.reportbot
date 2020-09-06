@@ -18,6 +18,7 @@ class GetData(Api):
         headers = {'Accept': 'application/vnd.api+json'}
         self.append = '/matches/{}'.format(matchid)
         get = requests.get(self.url + self.append, headers=headers)
+        print('request data:' +  self.url + self.append)
         data = json.loads(get.text)
         if data is None:
             return False
@@ -25,12 +26,13 @@ class GetData(Api):
         return data
 
 def compute(victim=None, matchid=None):
-    ''' Chaos incarnate'''
+    ''' Get match data from pubg'''
     from bot.pubg import Api as dApi
     x = GetData() # Init pubg api
     y = dApi()    # Init report api
     victimid = y.getId(victim)
     proc = x.MatchInfo(matchid=matchid)
+    print('PUBG MatchInfo:\n' + proc)
     if victimid == None:
         return False
     try:
