@@ -4,6 +4,10 @@
 
 A bot that will announce your kill/you being killed in pubg to your discord channel with video from your enemies point of view via their Twitchstream.
 
+** Version update **
+Version 1.2: some bugfixes after pubg has changed their API. 
+
+
 **How to download:**
 
 > git clone https://github.com/kragebein/pubg.reportbot.git
