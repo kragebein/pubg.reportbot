@@ -155,8 +155,8 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
         if about is not False:
             embed.add_field(name='About {}'.format(victim), value=about, inline=False)
             
-    else:
-        embed.set_image(url=maptype[mapp])
+    #else:
+    embed.set_image(url=maptype[mapp])
 
     # Add this id to the db.
     x = sqlite3.connect('database.db')
