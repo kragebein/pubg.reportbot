@@ -47,8 +47,7 @@ def getUser(i):
     return False
 
 def checkforupdate():
-    version = {'version': 1.2}
-    
+    version = 1.2
     def update(update):
         newversion = update['version']
         if float(newversion) > float(version):
