@@ -47,10 +47,8 @@ def getUser(i):
     return False
 
 def checkforupdate():
-    with open('version.txt', 'r') as versions:
-        version = json.loads(versions.read())
-    version = version['version']
-    versions.close()
+    version = {'version': 1.2}
+    
     def update(update):
         newversion = update['version']
         if float(newversion) > float(version):
