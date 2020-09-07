@@ -18,11 +18,10 @@ class GetData(Api):
         headers = {'Accept': 'application/vnd.api+json'}
         self.append = '/matches/{}'.format(matchid)
         get = requests.get(self.url + self.append, headers=headers)
-        print('request data:' +  self.url + self.append)
         data = json.loads(get.text)
         if data is None:
             return False
-        print(data)
+      
         return data
 
 def compute(victim=None, matchid=None):
@@ -32,12 +31,11 @@ def compute(victim=None, matchid=None):
     y = dApi()    # Init report api
     victimid = y.getId(victim)
     proc = x.MatchInfo(matchid=matchid)
-    print('PUBG MatchInfo:\n' + proc)
     if victimid == None:
         return False
     try:
         for i in proc['included']:
-            if i['attributes']['stats']['playerId'] == victimid: # AccountID
+            if i['id'] == victimid: # AccountID
                 diter = i['attributes']['stats']
                 place = diter['winPlace']
                 kills = diter['kills']
@@ -49,4 +47,3 @@ def compute(victim=None, matchid=None):
         traceback.print_exc()
         pass
     return False
-
