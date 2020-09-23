@@ -45,5 +45,5 @@ def compute(victim=None, matchid=None):
                     damage = stats['damageDealt']
                     time = stats['timeSurvived']
                     kills = stats['kills']
-                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocks, round(time,1) * 60, winPlace))
+                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocks, round(time,1) / 60, winPlace))
     return False
