@@ -138,7 +138,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
 
     embed = discord.Embed(title='{} just {} {}!'.format(killer, event, victim),url="https://www.twitch.tv/videos/{}?t={}".format(videoID,timecode), timestamp=datetime.datetime.utcfromtimestamp(timestamp))
     embed.set_thumbnail(url=imagetype[event])
-    embed.set_author(name=discorduser)
+    embed.set_author(name=discorduser.split('#')[0])
     embed.set_footer(text="pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Weapon", value="{}".format(weapon), inline=True)
@@ -152,8 +152,9 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
         if about is not False:
             embed.add_field(name='About {}'.format(victim), value=about, inline=False)
             
-    #else:
-    embed.set_image(url=maptype[mapp])
+    else:
+        pass
+        #embed.set_image(url=maptype[mapp])
 
     # Add this id to the db.
     x = sqlite3.connect('database.db')
