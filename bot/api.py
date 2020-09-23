@@ -34,14 +34,15 @@ def compute(victim=None, matchid=None):
     if victimid == None:
         return False
     try:
-        for i in proc['included']:
-            if i['id'] == victimid: # AccountID
-                diter = i['attributes']['stats']
-                place = diter['winPlace']
-                kills = diter['kills']
-                time = diter['timeSurvived'] / 60
-                knocked = diter['DBNOs']
-                return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocked, round(time,1), place))
+        if 'included' in proc:
+            for i in proc['included']:
+                if i['id'] == victimid: # AccountID
+                    diter = i['attributes']['stats']
+                    place = diter['winPlace']
+                    kills = diter['kills']
+                    time = diter['timeSurvived'] / 60
+                    knocked = diter['DBNOs']
+                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocked, round(time,1), place))
     except:
         #DEBUG
         traceback.print_exc()
