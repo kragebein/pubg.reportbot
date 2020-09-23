@@ -63,18 +63,19 @@ def main():
             for i in accountlist:
                 pubgname = i
                 discord = getUser(pubgname)
-                #print('Parsing: {}: {}'.format(discord, pubgname))
-                #try:
-                    #api.event(pubgname, discord) # Run the results through pubg.report api
-                #except Exception as r:
-                #    logging.info('Something went wrong while checking pubg.report. See debug.')
-                #    logging.info('Error, unable to connect to api.pubg.report, debug:')
-                #    logging.info(str(r))
-                #    traceback.print_exc()
-                #    break
+                print(discord)
+                print('Parsing: {}: {}'.format(discord.split('#')[0], pubgname.split('.')[1]))
+                try:
+                    api.event(pubgname, discord) # Run the results through pubg.report api
+                except Exception as r:
+                    logging.info('Something went wrong while checking pubg.report. See debug.')
+                    logging.info('Error, unable to connect to api.pubg.report, debug:')
+                    logging.info(str(r))
+                    traceback.print_exc()
+                    break
             
             run += timer
-            
+    exit(0)    
         
         
 
