@@ -63,7 +63,6 @@ def main():
             for i in accountlist:
                 pubgname = i
                 discord = getUser(pubgname)
-                print(discord)
                 print('Parsing: {}: {}'.format(discord.split('#')[0], pubgname.split('.')[1]))
                 try:
                     api.event(pubgname, discord) # Run the results through pubg.report api
@@ -74,8 +73,7 @@ def main():
                     traceback.print_exc()
                     break
             
-            run += timer
-    exit(0)    
+            run += timer   
         
         
 
