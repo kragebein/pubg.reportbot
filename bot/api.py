@@ -21,11 +21,12 @@ class GetData(Api):
         data = json.loads(get.text)
         if data is None:
             return False
-      
+
         return data
 
 def compute(victim=None, matchid=None):
     ''' Get match data from pubg'''
+    print(victim, matchid)
     from bot.pubg import Api as dApi
     x = GetData() # Init pubg api
     y = dApi()    # Init report api
@@ -33,18 +34,16 @@ def compute(victim=None, matchid=None):
     proc = x.MatchInfo(matchid=matchid)
     if victimid == None:
         return False
-    try:
-        if 'included' in proc:
-            for i in proc['included']:
-                if i['id'] == victimid: # AccountID
-                    diter = i['attributes']['stats']
-                    place = diter['winPlace']
-                    kills = diter['kills']
-                    time = diter['timeSurvived'] / 60
-                    knocked = diter['DBNOs']
-                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocked, round(time,1), place))
-    except:
-        #DEBUG
-        traceback.print_exc()
-        pass
+    for x in proc['included']: 
+        if x['type'] == 'participant':
+            if 'stats' in x['attributes']:
+                if victim == x['attributes']['stats']['name']:
+                    stats = x['attributes']['stats']
+                    knocks = stats['DBNOs']
+                    revives = stats['revives']
+                    winPlace = stats['winPlace']
+                    damage = stats['damageDealt']
+                    time = stats['timeSurvived']
+                    kills = stats['kills']
+                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocks, round(time,1) * 60, winPlace))
     return False
