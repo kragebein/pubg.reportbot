@@ -34,16 +34,17 @@ def compute(victim=None, matchid=None):
     proc = x.MatchInfo(matchid=matchid)
     if victimid == None:
         return False
-    for x in proc['included']: 
-        if x['type'] == 'participant':
-            if 'stats' in x['attributes']:
-                if victim == x['attributes']['stats']['name']:
-                    stats = x['attributes']['stats']
-                    knocks = stats['DBNOs']
-                    revives = stats['revives']
-                    winPlace = stats['winPlace']
-                    damage = stats['damageDealt']
-                    time = stats['timeSurvived']
-                    kills = stats['kills']
-                    return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocks, round(time,1) / 60, winPlace))
+    if 'included' in proc:
+        for x in proc['included']: 
+            if x['type'] == 'participant':
+                if 'stats' in x['attributes']:
+                    if victim == x['attributes']['stats']['name']:
+                        stats = x['attributes']['stats']
+                        knocks = stats['DBNOs']
+                        revives = stats['revives']
+                        winPlace = stats['winPlace']
+                        damage = stats['damageDealt']
+                        time = stats['timeSurvived']
+                        kills = stats['kills']
+                        return('{} had {} kills, {} knock(s), was alive for {} minutes and was ranked {}/100 in this match.'.format(victim, kills, knocks, round(time / 60,1) , winPlace))
     return False
