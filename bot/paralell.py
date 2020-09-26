@@ -63,7 +63,7 @@ def main():
             for i in accountlist:
                 pubgname = i
                 discord = getUser(pubgname)
-                print('Parsing: {}: {}'.format(discord.split('#')[0], pubgname.split('.')[1]))
+                print('Parsing: {}: {}'.format(discord.split('#')[0] if '.' in discord else discord, pubgname.split('.')[1]))
                 try:
                     api.event(pubgname, discord) # Run the results through pubg.report api
                 except Exception as r:

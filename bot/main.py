@@ -138,7 +138,7 @@ def build_embed(apiobj, discorduser=None, killer=None, victim=None, distance=Non
 
     embed = discord.Embed(title='{} just {} {}!'.format(killer, event, victim),url="https://www.twitch.tv/videos/{}?t={}".format(videoID,timecode), timestamp=datetime.datetime.utcfromtimestamp(timestamp))
     embed.set_thumbnail(url=imagetype[event])
-    embed.set_author(name=discorduser.split('#')[0])
+    embed.set_author(name=discorduser.split('#')[0] if '.' in discorduser else discorduser)
     embed.set_footer(text="pubg.reportbot", icon_url="https://avatars0.githubusercontent.com/u/19599766?s=120&v=4")
     embed.add_field(name="Attacker", value="{}".format(killer), inline=True)
     embed.add_field(name="Weapon", value="{}".format(weapon), inline=True)
